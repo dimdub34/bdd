@@ -731,48 +731,12 @@
 					<h3>Code Python</h3>
 					<p>
 						<code>
-							import sqlite3<br><br>
-
-							# Connexion à la base de données<br>
-							connection = sqlite3.connect('exemple.db')<br><br>
-
-							# Création d'un curseur<br>
-							cursor = connection.cursor()<br><br>
-
-							# Exécution d'une requête<br>
-							cursor.execute("SELECT * FROM Client")<br><br>
-							</code>
-					</p>
-				</section>
-				<section>
-					<p>
-						<code>
-							# Récupération des résultats<br>
-							results = cursor.fetchall()<br><br>
-
-							# Fermeture du curseur et de la connexion<br>
-							cursor.close()<br>
-							connection.close()<br><br>
-
-							# Affichage des résultats<br>
-							for row in results: <br>
-							&nbsp;&nbsp;print(row)
-						</code>
-					</p>
-				</section>
-				<section>
-					<h3>Dans un notebook Jupyter</h3>
-					<p>
-						<code>
 							requete = "SELECT * FROM Client" <br>
 							with sqlite3.connect('exemple.db') as connection <br>
 							&nbsp;&nbsp;cursor = connection.cursor()<br>
 							&nbsp;&nbsp;cursor.execute(requete) <br>
 							&nbsp;&nbsp;results = cursor.fetchall()
 						</code>
-					</p>
-					<p>
-						On peut ensuite travailler avec <i>results</i>
 					</p>
 				</section>
 				<section>
