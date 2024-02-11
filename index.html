@@ -1,59 +1,831 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/custom.css">
+	<title>BDD</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/custom.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<section style="text-align: center;">
+					<h2>Bases de données</h2>
+					<p>&nbsp;</p>
+					<h3>DU - Connaissances Fondamentales en Informatique avec des Logiciels Libres</h3>
+					<p>&nbsp;</p>
+					<h4>D. Dubois</h4>
+					<p><a href="mailto: dimitri.dubois@umontpellier.fr">dimitri.dubois@umontpellier.fr</a></p>
+					<figure>
+						<img src="img/um.png" alt="Logo UM" style="width:150px; border: 0px">
+						<img src="img/cnrs.png" alt="Logo CNRS" style="width:150px; border: 0px">
+					</figure>
+				</section>
+				<section>
+					<h3>Contenu</h3>
+					<ul>
+						<li><a href="#intro">Introduction</a></li>
+						<li><a href="#concepts">Concepts des BDD relationnelles</a></li>
+						<li><a href="#sqlite">Création d'une BDD avec SQLite</a></li>
+						<li><a href="#requetes">Les requêtes SQL</a></li>
+						<li><a href="#python">Manipulation d'une BDD avec Python</a></li>
+						<li><a href="#pour_aller_plus_loin">Pour aller plus loins</a></li>
+					</ul>
+				</section>
+			</section>
+
+			<section id="intro">
+				<section>
+					<h2>Introduction</h2>
+				</section>
+				<section>
+					<h3>Définition</h3>
+					<ul>
+						<li>un ensemble organisé d'informations avec un objectif commun</li>
+						<li>un ensemble structuré et organisé permettant le stockage de grandes quantités d'informations
+							afin d'en faciliter l'exploitation (ajout, mise à jour, recherche)
+						</li>
+						<li>pour concevoir une base de données il faut décrire les données et les relations qui existent
+							entre les données: définir des propriétés et des liens</li>
+						<li>la description est réalisée en utilisant un modèle de données (cf. plus loin)</li>
+						<li>la gestion et l'accès sont assurés par le système de Gestion de base de données (SGBD)</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Avantages des BDD</h3>
+					<ul>
+						<li>Organisation et structuration des données</li>
+						<li>Facilité de recherche et d'accès aux données</li>
+						<li>Partage des données entre plusieurs utilisateurs</li>
+						<li>Mise à jour et modification des données simplifiées</li>
+						<li>Pérennité et sauvegarde des données </li>
+					</ul>
+				</section>
+				<section>
+					<h3>Historique</h3>
+					<ul>
+						<li><b>Années 60</b> : stockage des données dans des fichiers plats, chaque fichier stockait des
+							informations relatives à un sujet ou une fonction spécifique, sans lien entre les fichiers.
+						</li>
+						<li>
+							<b>Années 70</b> : naissance des BDD relationnelles (Edgard F. Codd, chercheur chez IBM). Ce
+							modèle
+							utilise des tables pour stocker les données, avec des relations entre ces tables, permettant
+							une meilleure structuration des données.
+						</li>
+						<li><b>Années 80</b> : consolidation et standardisation des BDD relationnelles. Le language SQL
+							(Structured Query Language) devient le standard pour la manipulation et la gestion des
+							données dans les BDD relationnelles. De nombreux SGBD entrent sur le marché, dont MySQL,
+							postgreSQL et Microsoft SQL Server.</li>
+					</ul>
+				</section>
+				<section>
+					<ul>
+						<li><b>Années 90</b> : Nouvelles solutions comme les BDD orientées objet, qui permettent de
+							stocker les données sous forme d'objets, intégrant ainsi les principes de la POO.</li>
+						<li><b>Années 2000</b> : émergence du NoSQL (Not Only SQL), offrant plus de flexibilité, en
+							réponse aux défis du Big Data (volume et variété des données).</li>
+						<li><b>Années 2010</b> : BDD en mémoire pour performances accrues lors du traitement en temps
+							réel; BDD as a Service (DBaaS) qui fait référence au cloud computing pour les BDD.</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Les différents type de BDD</h3>
+					<ul>
+						<li>relationnelles (les plus courantes)</li>
+						<li>non relationnelles</li>
+					</ul>
+				</section>
+				<section>
+					<h3>BDD relationnelles</h3>
+					<ul>
+						<li>stockent les données dans des tables structurées avec des liens entre elles</li>
+						<li>modèle basé sur le language SQL pour les requêtes</li>
+						<li>Ex: MySQL, PostgreSQL, Oracle, Microsoft SQL Server, SQLite</li>
+					</ul>
+					<p><b>Avantages</b></p>
+					<ul>
+						<li>structure rigoureuse et bien définie</li>
+						<li>facilité de recherche et d'analyse des données</li>
+						<li>large adoption et support</li>
+					</ul>
+					<p><b>Inconvénients</b></p>
+					<ul>
+						<li>moins flexibles pour les données non structurées</li>
+						<li>complexité de conception et de gestion</li>
+					</ul>
+				</section>
+				<section>
+					<h3>BDD non-relationnelles (NoSQL)</h3>
+					<ul>
+						<li>alternative aux BDD relationnelles pour les données non ou semi structurées</li>
+						<li>divers modèles de données: documents, clés-valeurs, graphes etc.</li>
+						<li>stockent les données sous forme de documents json ou xlm</li>
+						<li>Ex: MongoDB</li>
+					</ul>
+					<p><b>Avantages</b></p>
+					<ul>
+						<li>flexibilité et scalabilité pour les données non structurées</li>
+						<li>facilité de développement et d'utilisation</li>
+					</ul>
+					<p><b>Inconvénients</b></p>
+					<ul>
+						<li>absence de structure formelle peut complexifier certaines requêtes</li>
+						<li>performances moins bonnes pour les requêtes complexes</li>
+						<li>moins matures et moins bien supportées que les BDD relationnelles</li>
+					</ul>
+				</section>
+			</section>
+
+			<section id="concepts">
+				<section>
+					<h2>Concepts des BDD relationnelles</h2>
+				</section>
+				<section>
+					<h3>Table</h3>
+					<ul>
+						<li>collection de données organisées en lignes et colonnes</li>
+						<li>représente une entité spécifique dans la BDD, par exemple Employés, Comptes, Produits,
+							Clients etc.</li>
+						<li>chaque table stocke des informations relatives à un sujet spécifique</li>
+						<li>chaque ligne de la table représente un enregistrement</li>
+						<li>chaque colonne représente un type de données spécifique (texte, nombre, date etc.)</li>
+					</ul>
+					<p>Table clients</p>
+					<table>
+						<thead>
+							<tr>
+								<th>Nom</th>
+								<th>Prenom</th>
+								<th>Email</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>DUPONT</td>
+								<td>Martin</td>
+								<td>martin.dupont@email.com</td>
+							</tr>
+							<tr>
+								<td>DURAND</td>
+								<td>Sophie</td>
+								<td>sophie.durand@email.com</td>
+							</tr>
+							<tr>
+								<td>...</td>
+								<td>...</td>
+								<td>...</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				<section>
+					<h3>Champ</h3>
+					<ul>
+						<li>un champ (colonne) représente une catégorie d'information dans la table</li>
+						<li>chaque champ représente une caractéristique d'un enregistrement</li>
+						<li>il est défini par son nom, son type de données et sa taille</li>
+					</ul>
+					<p>Table clients</p>
+					<table>
+						<thead>
+							<tr>
+								<th>Champ</th>
+								<th>Type de données</th>
+								<th>Taille</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Nom</td>
+								<td>Texte</td>
+								<td>255 caractères</td>
+								<td>Nom du client</td>
+							</tr>
+							<tr>
+								<td>Prenom</td>
+								<td>Texte</td>
+								<td>255 caractères</td>
+								<td>Prénom du client</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td>Texte</td>
+								<td>255 caractères</td>
+								<td>Adresse mail du client</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				<section>
+					<h3>Les relations entre les tables</h3>
+					<ul>
+						<li>une relation permet de lier des données stockées dans deux tables différentes</li>
+						<li>3 types de relations: un-à-un (1-1), un-à-plusieurs (1-n) et plusieurs-à-plusieurs (n-n)
+						</li>
+						<li>un-à-un: un enregistrement dans une table est lié à un seul enregistrement dans une autre
+							table</li>
+						<li>un-à-plusieurs: un enregistrement dans une table est lié à plusieurs enregistrements dans
+							une autre table</li>
+						<li>plusieurs-à-plusieurs: plusieurs enregistrements dans une table sont liés à plusieurs
+							enregistrements dans une autre table</li>
+					</ul>
+					<p>
+						Client --- (1,N) --- Commande --- (N,N) --- Produit
+					</p>
+				</section>
+				<section>
+					<h3>Représentation des relations</h3>
+					<ul>
+						<li>par des diagrammes entité-association ("Entity-Relationship Diagram", ERD)</li>
+						<li>les entités (tables) sont représentées par des rectangles</li>
+						<li>les associations sont représentées par des lignes</li>
+						<li>les types de relations sont indiquées par des cardinalités</li>
+					</ul>
+				</section>
+				<section>
+					<figure>
+						<img src="img/erd.png" alt="ERD">
+					</figure>
+					<ul style="font-size: 0.75em;">
+						<li>1 client peut passer plusieurs commandes</li>
+						<li>1 commande ne peut venir que d'un seul client</li>
+						<li>1 commande peut contenir plusieurs produits</li>
+						<li>1 produit peut être dans plusieurs commandes</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Clé primaire</h3>
+					<ul>
+						<li>champ qui identifie de manière unique chaque enregistrement dans une table</li>
+						<li>ne peut pas contenir de valeur nulle</li>
+						<li>permet de garantir l'unicité et l'intégrité des données</li>
+					</ul>
+					<p>
+						Dans ERD de la diapositive précédente, la clé primaire de la table Client est le champ id.
+						Pareil pour la table Commande et la table Produit.
+					</p>
+					<p>
+						<i>pas d'obligation d'appeler ce champ id, cela pourrait être NumClient, NumCommande, NumProduit
+							par exemple.</i>
+					</p>
+				</section>
+				<section>
+					<h3>Clé étrangère</h3>
+					<ul>
+						<li>champ qui fait référence à la clé primaire d'une autre table</li>
+						<li>permet de relier les tables entre elles</li>
+						<li>garantit l'intégrité référentielle : les valeurs de la clé étrangère doivent exister dans la
+							clé primaire de la table référencée</li>
+					</ul>
+					<p>
+						Dans ERD précédent la table Commande à 2 clés étrangères: client_id et produit_id; la table
+						Produit a 1 clé étrangère fournisseur_id.
+					</p>
+				</section>
+			</section>
+
+			<section id="sqlite">
+				<section>
+					<h2>Création d'une base de données SQLite</h2>
+				</section>
+				<section>
+					<h3>SQLite</h3>
+					<ul>
+						<li>SGBD relationnel léger et autonome</li>
+						<li>intégré dans de nombreux langages de programmation et systèmes d'exploitation</li>
+						<li>ne nécessite aucune installation, ce qui le rend facile à utiliser et à déployer</li>
+						<li>conçu pour être intégré dans des applications, il occupe peu d'espace et ressources système
+						</li>
+						<li>fonctionne sans nécessiter de serveur de base de données distinct ou un système de gestion
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Avantages</h3>
+					<ul>
+						<li>facile à utiliser, interface SQL simple et intuitive</li>
+						<li>peut être utilisé avec de nombreux languages de programmation</li>
+						<li>léger et portable, BDD stockée dans un fichier unique sur le disque</li>
+						<li>convient pour les applications de bureau, mobiles, et embarquées, des petits projets aux
+							applications complexes</li>
+						<li>performances élevées pour les requêtes simples</li>
+						<li>gratuit et open source</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Utilisations courantes</h3>
+					<ul>
+						<li>applications mobiles et embarquées</li>
+						<li>sites web et applications web</li>
+						<li>stockage de données local</li>
+						<li>prototypage et développement rapide</li>
+						<li>intégration dans des logiciels et outils</li>
+					</ul>
+				</section>
+				<section>
+					<h3>SQLite Browser</h3>
+					<ul>
+						<li>logiciel pour la manipulation de BDD SQLite</li>
+						<li>téléchargement sur le site <a href="https://sqlitebrowser.org/"
+								target="_blank">https://sqlitebrowser.org/</a></li>
+					</ul>
+				</section>
+				<section>
+					<h3>Création de la BDD client/commande/produit</h3>
+					<ul>
+						<li>ouvrir sqlitebrowser</li>
+						<li>fichier / nouvelle base de données</li>
+						<li>choisir l'emplacement et le nom du fichier</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Création de la table Client</h3>
+					<ul>
+						<li>table: Client</li>
+						<li>champ id : clé primaire, Integer, NN, CP, IA, U</li>
+						<li>champ Nom: text, NN</li>
+						<li>champ Prenom: text, NN</li>
+						<li>champ Email: text, NN</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Création de la table Produit</h3>
+					<ul>
+						<li>table: Produit</li>
+						<li>champ id : clé primaire, Integer, NN, CP, IA, U</li>
+						<li>champ Nom: text, NN, U</li>
+						<li>champ Description: text</li>
+						<li>champ Prix: numeric, NN</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Création de la table Commande</h3>
+					<ul>
+						<li>table: Produit</li>
+						<li>champ id: clé primaire, Integer, NN, CP, IA, U</li>
+						<li>champ client_id : Integer, NN, clé étrangère client id <br>
+							dans Contraintes ajouter / clé étrangère / colonnes client_id</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Création de la table de liaison Commande/Produit</h3>
+					<ul>
+						<li>pour créer une relation N-N entre deux tables</li>
+						<li>contient deux champs : une clé étrangère pour chaque table liée</li>
+						<li>permet de relier plusieurs enregistrements d'une table à plusieurs enregistrements d'une
+							autre table</li>
+					</ul>
+					<ul style="margin-top: 50px;">
+						<li>table CommandeProduit</li>
+						<li>champ commande_id: Integer, NN, clé étrangère Commande id</li>
+						<li>champ produit_id: Integer, NN, clé étrangère Produit id</li>
+						<li>champ Quantite: Integer, NN</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Remplissage des tables</h3>
+					<ul>
+						<li>onglet "Parcourir les données"; sélectionner la table Client; insérer un nouvel
+							enregistrement</li>
+						<li>insérer 3 enregistrements dans la table client
+							<ul>
+								<li>DUPONT Martin martin.dupont@email.com</li>
+								<li>DURAND Sophie sophie.durand@email.com</li>
+								<li>THOMAS Louis louis.thomas@email.com</li>
+							</ul>
+						</li>
+						<li>insérer 3 enregistrements dans la table Produit</li>
+						<li>insérer 3 enregistrements dans la table Commande</li>
+						<li>insérer 3 enregistrements dans la table CommandeProduit</li>
+					</ul>
+				</section>
+			</section>
+
+			<section id="requetes">
+				<section>
+					<h2>Les requêtes SQL</h2>
+				</section>
+				<section>
+					<h3>Structured Query Language (SQL)</h3>
+					<ul>
+						<li>language de manipulation de BDD</li>
+						<li>pour interroger, modifier et gérer les données</li>
+						<li>permet d'effectuer les tâches CRUD (Create, Read, Update, Delete)</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Les différents types de requêtes</h3>
+					<ul>
+						<li>SELECT: extraire des données d'une ou plusieurs tables</li>
+						<li>INSERT INTO: ajouter de nouvelles données à une table existante</li>
+						<li>UPDATE: modifier des données existantes dans une table</li>
+						<li>DELETE FROM: supprimer des données d'une table</li>
+						<li>ALTER TABLE: modifier la structure d'une table</li>
+					</ul>
+				</section>
+				<section>
+					<h3>SELECT</h3>
+					<ul>
+						<li>SELECT: définir les colonnes à afficher</li>
+						<li>FROM: spéficier la table source</li>
+						<li>WHERE: filter les données par conditions</li>
+						<li>ORDER BY: trier les résultats par une ou plusieurs colonnes</li>
+						<li>LIMIT: limiter le nombre de résultats</li>
+					</ul>
+					<p>
+						Dans l'onglet "Executer le SQL" <br>
+						<code>
+							SELECT * FROM Client
+						</code>
+						<br>
+						<i>affiche toutes les colonnes de la table Client</i>
+					</p>
+					<p>
+						<code>
+							SELECT * FROM Client ORDER BY Prenom <br>
+							SELECT Nom, Prenom FROM Client ORDER BY Prenom <br>
+							SELECT Nom, Prenom FROM Client ORDER BY Prenom LIMIT 2 <br>
+							SELECT Nom, Prenom FROM Client WHERE Prenom = "Sophie"
+						</code>
+					</p>
+				</section>
+				<section>
+					<h3>Requête SELECT avec jointures</h3>
+					<p>
+						<code>
+							SELECT C.Nom, C.Prenom, P.Nom as "Produit", P.Prix, CP.Quantite  <br>
+							FROM Client C, Produit P, Commande CO, CommandeProduit CP <br>
+							WHERE C.Prenom = "Sophie" <br>
+							AND CO.client_id = C.id  <br>
+							AND CP.commande_id = CO.id <br>
+							AND P.id = CP.produit_id
+						</code>
+					</p>
+				</section>
+				<section>
+					<ul>
+						<li>la ligne SELECT définit les colonnes à afficher <br>
+							<i>"as" signifie alias, sert à modifier le nom affiché de la colonne</i>
+						</li>
+						<li>la ligne FROM définit les tables dans lesquelles aller chercher les données <br>
+							<i>on peut donner un nom court à la table ("Client C" par exemple)</i>
+						</li>
+						<li>la ligne WHERE définition une première condition</li>
+						<li>les lignes AND ajoutent des conditions</li>
+						<li>une jointure est faite entre la table Client et la table Commande avec la ligne CO.client_id
+							= C.id</li>
+						<li>une jointure est faite entre la table Commande et la table CommandeProduit avec la ligne
+							CP.commande_id = CO.id</li>
+						<li>une jointure est faite entre la table CommandeProduit et la table Produit avec la ligne P.id
+							= CP.produit_id</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Avec jointures explicites</h3>
+					<p>
+						<code>
+							SELECT C.Nom, C.Prenom, P.Nom AS "Produit", P.Prix, CP.Quantite<br>
+							FROM Client C<br>
+							INNER JOIN Commande CO ON C.id = CO.client_id<br>
+							INNER JOIN CommandeProduit CP ON CO.id = CP.commande_id<br>
+							INNER JOIN Produit P ON CP.produit_id = P.id<br>
+							WHERE C.Prenom = "Sophie";
+						</code>
+					</p>
+				</section>
+				<section>
+					<ul>
+						<li>INNER JOIN entre Client et Commande sur la colonne client_id: Cette jointure garantit que
+							seuls les clients qui ont passé des commandes seront inclus dans le résultat</li>
+						<li>INNER JOIN entre Commande et CommandeProduit sur la colonne commande_id: Cette jointure
+							garantit
+							que seuls les produits qui ont été commandés seront inclus dans le résultat</li>
+						<li>INNER JOIN entre CommandeProduit et Produit sur la colonne produit_id: Cette jointure
+							garantit
+							que les informations du produit (nom et prix) seront incluses dans le résultat pour chaque
+							produit commandé</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Exercices de requêtes</h3>
+					<ul>
+						<li>afficher les produits dont le prix est supérieur à 800 €</li>
+						<li>afficher toutes les commandes de Martin (ajouter au préalable plusieurs commandes pour
+							Martin si besoin), avec numero de commande, date, Nom, Prénom et le produit</li>
+						<li>afficher toutes les commandes et les trier par date, en affichant Date, Nom, Prenom,
+							Produit, Prix</li>
+						<li>afficher toutes les commande d'ordinateur portable (ou fixe), avec le numéro de commande, la
+							date ainsi que le nom et prénom du client</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Corrections</h3>
+					<p>
+						Les produits supérieurs à 800 € <br>
+						<code>
+							SELECT * from Produit <br>
+							WHERE Prix > 800 <br>
+							ORDER BY Prix
+						</code>
+					</p>
+				</section>
+				<section>
+					<p>
+						Les commandes de Martin <br>
+						<code>
+						SELECT CO.id as "Num Commande", CO.Date, C.Nom, C.Prenom, P.Nom as "Produit" <br>
+						FROM Client C <br>
+						INNER JOIN Commande CO on CO.client_id = C.id <br>
+						INNER JOIN CommandeProduit CP on CP.commande_id = CO.id <br>
+						INNER JOIN Produit P on P.id = CP.produit_id <br>
+						WHERE C.Prenom = "Martin" <br>
+						ORDER BY CO.Date
+					</code>
+					</p>
+				</section>
+				<section>
+					<p>
+						Les commandes par date <br>
+						<code>
+							SELECT CO.Date, C.Nom, C.Prenom, P.Nom as "Produit", Prix <br>
+							FROM Commande CO <br>
+							INNER JOIN Client C on CO.client_id = C.id <br>
+							INNER JOIN CommandeProduit CP on CP.commande_id = CO.id <br>
+							INNER JOIN Produit P on P.id = CP.produit_id <br>
+							ORDER BY CO.Date
+						</code>
+					</p>
+				</section>
+				<section>
+					<p>
+						Les commandes d'ordinateur fixe <br>
+						<code>
+							SELECT P.Nom as "Produit", CO.id as "Num Commande", CO.Date, C.Nom, C.Prenom  <br>
+							FROM Produit P <br>
+							INNER JOIN CommandeProduit CP on CP.produit_id = P.id <br>
+							INNER JOIN Commande CO on CO.id = CP.commande_id <br>
+							INNER JOIN Client C on C.id = CO.client_id <br>
+							WHERE P.NOM = "Ordinateur fixe" <br>
+							ORDER BY CO.Date
+						</code>
+					</p>
+				</section>
+				<section>
+					<h3>Les fonctions d'agrégation</h3>
+					<ul>
+						<li>SUM: la somme</li>
+						<li>AVG: la moyenne</li>
+						<li>COUNT: le nombre d'enregistrements</li>
+						<li>MIN: le minimum</li>
+						<li>MAX: le max</li>
+					</ul>
+				</section>
+				<section>
+					<h3>La clause GROUP BY</h3>
+					<ul>
+						<li>utilisée pour regrouper les résultats d'une requête en fonction de valeurs communes dans une
+							ou plusieurs colonnes</li>
+						<li>après la clause SELECT et avant la clause ORDER BY</li>
+						<li>les colonnes spécifiées dans la clause GROUP BY sont utilisées comme clés de regroupement
+						</li>
+						<li>les résultats de la requête seront regroupés par les valeurs de ces clés</li>
+						<li>pour chaque groupe, les fonctions d'agrégation (SUM, AVG, MIN, MAX, COUNT) peuvent être
+							utilisées pour calculer des statistiques sur les autres colonnes de la table</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Les montants dépensés par chaque client</h3>
+					<p>
+						<code>
+							SELECT C.Nom, C.Prenom, SUM(P.Prix) as "Dépense totale" <br>
+							FROM Client C <br>
+							INNER JOIN Commande CO ON CO.client_id = C.id <br>
+							INNER JOIN CommandeProduit CP ON CP.commande_id = CO.id <br>
+							INNER JOIN Produit P ON P.id = CP.produit_id <br>
+							GROUP BY C.Nom, C.Prenom;
+						</code>
+					</p>
+				</section>
+				<section>
+					<h3>Exercices</h3>
+					<ul>
+						<li>afficher le nombre de commandes effectuées par chaque client</li>
+						<li>afficher les quantités commandées pour chaque produit</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Corrections</h3>
+					<p>
+						Commandes de chaque client<br>
+						<code>
+							SELECT C.Nom, C.Prenom, COUNT(CO.id) as "Nombre de commandes" <br>
+							FROM Client C <br>
+							INNER JOIN Commande CO ON CO.client_id = C.id <br>
+							GROUP BY C.Nom, C.Prenom;
+						</code>
+					</p>
+				</section>
+				<section>
+					<p>
+						Quantités commandées de chaque produit <br>
+						<code>
+							SELECT P.Nom as "Produit", SUM(CP.Quantite) as "Quantités commandées" <br>
+							FROM Produit P <br>
+							INNER JOIN CommandeProduit CP on CP.produit_id = P.id <br>
+							GROUP BY P.Nom;
+						</code>
+					</p>
+				</section>
+				<section>
+					<h3>Requete INSERT INTO</h3>
+					<ul>
+						<li>pour ajouter des enregistrements à une table existante</li>
+						<li>une ligne de valeurs pour chaque enregistrement, séparée par une virgule</li>
+					</ul>
+					<p>
+						<code>
+							INSERT INTO table_name (colonne1, colonne2, ...) <br>
+							VALUES (valeur1, valeur2, ...);
+						</code>
+					</p>
+					<p>
+						<b><u>Exemple</u></b> : <br>
+						<code>
+							INSERT INTO Client (Nom, Prenom, Email) <br>
+							VALUES ("ROBERT", "Leo", "leo.robert@email.com"), <br>
+							("MOREAU", "Arthur", "arthur.moreau@email.com")
+						</code>
+					</p>
+				</section>
+				<section>
+					<h3>Exercice</h3>
+					<ul>
+						<li>ajouter des produits dans votre BDD avec une requête INSERT INTO</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Requete UPDATE</h3>
+					<ul>
+						<li>pour mettre à jour le champ d'une table</li>
+					</ul>
+					<p>
+						<code>
+							UPDATE table_name <br>
+							SET colonne1 = valeur1, colonne2 = valeur2, ... <br>
+							WHERE condition;
+						</code>
+					</p>
+					<p>
+						<b><u>Exemple</u></b> : <br>
+						<code>
+							UPDATE Client <br>
+							SET Email = "leo.robert@new-email.com" <br>
+							WHERE Nom = "ROBERT"
+						</code>
+					</p>
+				</section>
+				<section>
+					<h3>Exercice</h3>
+					<ul>
+						<li>ajouter une description à un des produits qui n'en avait pas (ou changé la description d'un
+							produit)</li>
+					</ul>
+				</section>
+			</section>
+
+			<section id="python">
+				<section>
+					<h2>Python et SQLite</h2>
+				</section>
+				<section>
+					<h3>sqlite3</h3>
+					<ul>
+						<li>bibliothèque standard de Python qui permet d'interagir avec des bases de données SQLite
+							depuis des scripts Python</li>
+						<li>offre une interface simple et efficace pour effectuer des
+							opérations CRUD (Create, Read, Update, Delete) et des requêtes SQL complexes</li>
+						<li>résultats des requêtes sont accessibles sous forme de tuples ou de dictionnaires</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Code Python</h3>
+					<p>
+						<code>
+							import sqlite3<br><br>
+
+							# Connexion à la base de données<br>
+							connection = sqlite3.connect('exemple.db')<br><br>
+
+							# Création d'un curseur<br>
+							cursor = connection.cursor()<br><br>
+
+							# Exécution d'une requête<br>
+							cursor.execute("SELECT * FROM Client")<br><br>
+							</code>
+					</p>
+				</section>
+				<section>
+					<p>
+						<code>
+							# Récupération des résultats<br>
+							results = cursor.fetchall()<br><br>
+
+							# Fermeture du curseur et de la connexion<br>
+							cursor.close()<br>
+							connection.close()<br><br>
+
+							# Affichage des résultats<br>
+							for row in results: <br>
+							&nbsp;&nbsp;print(row)
+						</code>
+					</p>
+				</section>
+				<section>
+					<h3>Dans un notebook Jupyter</h3>
+					<p>
+						<code>
+							requete = "SELECT * FROM Client" <br>
+							with sqlite3.connect('exemple.db') as connection <br>
+							&nbsp;&nbsp;cursor = connection.cursor()<br>
+							&nbsp;&nbsp;cursor.execute(requete) <br>
+							&nbsp;&nbsp;results = cursor.fetchall()
+						</code>
+					</p>
+					<p>
+						On peut ensuite travailler avec <i>results</i>
+					</p>
+				</section>
+				<section>
+					<h3>Exercice</h3>
+					<p>Dans un notebook</p>
+					<ul>
+						<li>se connecter à la base</li>
+						<li>executer une requête qui récupère toutes les commandes, avec nom et prénom des clients et
+							nom et prix des produits</li>
+						<li>afficher les résultats</li>
+						<li>calculer la somme des produits vendus</li>
+					</ul>
+				</section>
+			</section>
+			
+			<section id="pour_aller_plus_loin">
+				<section>
+					<h3>Pour aller plus loin</h3>
+					<ul>
+						<li>JSON (JavaScript Object Notation) : créer des BDD non relationnelles</li>
+						<li>SQLAlchemy : bibliothèque Python pour créer une BDD et des objets qui sont des tables dans
+							la base dont les propriétés sont des champs</li>
+					</ul>
+				</section>
+			</section>
 		</div>
+	</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			hash: true,
+			history: true,
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+				{ src: 'plugin/math/math.js', async: true }
+			],
+			math: {
+				mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+				config: 'TeX-AMS_HTML',
+			}
+		});
+		Reveal.configure({
+			slideNumber: 'c/t'
+		});
+	</script>
+</body>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-                hash:  true,
-                history: true,
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/math/math.js', async: true }
-				],
-				math: {
-	                   mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
-	                    config: 'TeX-AMS_HTML',
-	                }
-			});
-			Reveal.configure({
-				slideNumber: 'c/t'
-			});
-		</script>
-	</body>
 </html>
