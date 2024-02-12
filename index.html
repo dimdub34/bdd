@@ -742,8 +742,9 @@
 					<h3>Code Python</h3>
 					<p>
 						<code>
+							import sqlite3 <br><br>
 							requete = "SELECT * FROM Client" <br>
-							with sqlite3.connect('exemple.db') as connection <br>
+							with sqlite3.connect('exemple.db') as connection: <br>
 							&nbsp;&nbsp;cursor = connection.cursor()<br>
 							&nbsp;&nbsp;cursor.execute(requete) <br>
 							&nbsp;&nbsp;results = cursor.fetchall()
