@@ -657,6 +657,17 @@
 					</p>
 				</section>
 				<section>
+					<p>
+						Quantités commandées de chaque produit avec prix unitaire et prix total <br>
+						<code>
+							SELECT P.Nom as "Produit", SUM(CP.Quantite) as "Qte commandee", P.Prix as "Prix unitaire", SUM(P.Prix * CP.Quantite) as "Prix total" <br>
+							FROM Produit P <br>
+							INNER JOIN CommandeProduit CP on CP.produit_id=P.id <br>
+							GROUP BY P.Nom ORDER BY "Qte commandee" DESC
+						</code>
+					</p>
+				</section>
+				<section>
 					<h3>Requete INSERT INTO</h3>
 					<ul>
 						<li>pour ajouter des enregistrements à une table existante</li>
@@ -751,7 +762,7 @@
 					</ul>
 				</section>
 			</section>
-			
+
 			<section id="pour_aller_plus_loin">
 				<section>
 					<h3>Pour aller plus loin</h3>
