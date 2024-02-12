@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/home/dimitri/MyCore/travail/cours/CFI2L/bdd/files/clientCommandes.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1549"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,7:mainProduit"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Client" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="28"/><column index="2" value="65"/><column index="3" value="61"/><column index="4" value="183"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Commande" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="28"/><column index="2" value="83"/><column index="3" value="66"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="CommandeProduit" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="105"/><column index="2" value="79"/><column index="3" value="68"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Produit" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="28"/><column index="2" value="136"/><column index="3" value="121"/><column index="4" value="53"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">SELECT C.Prenom, CO.id as &quot;Num Commande&quot;, CO.Date, P.Nom as &quot;Produit&quot;, CP.Quantite
+from Client C
+INNER JOIN Commande CO on CO.client_id=C.id
+INNER JOIN CommandeProduit CP on CP.commande_id=CO.id
+INNER JOIN Produit P on P.id=CP.produit_id
+WHERE C.Prenom=&quot;Martin&quot;</sql><sql name="SQL 2">SELECT CO.Date, CO.id as &quot;N. Commande&quot;, C.Nom, C.Prenom, P.Nom as &quot;Produit&quot;, P.Prix 
+FROM Commande CO
+INNER JOIN Client C on C.id=CO.client_id
+INNER JOIN CommandeProduit CP on CP.commande_id=CO.id
+INNER JOIN Produit P on P.id=CP.produit_id
+ORDER BY CO.Date</sql><sql name="SQL 3">SELECT P.Nom as &quot;Produit&quot;, CO.id as &quot;N. Commande&quot;, CO.Date, C.Nom, C.Prenom 
+FROM Produit P
+INNER JOIN CommandeProduit CP on CP.produit_id = P.id
+INNER JOIN Commande CO on CO.id=CP.commande_id
+INNER JOIN Client C on C.id=CO.client_id
+WHERE P.Nom=&quot;Ordinateur fixe&quot;
+</sql><sql name="SQL 4">SELECT C.id, C.Nom, C.Prenom, SUM(P.prix) as &quot;Montant commandé&quot;
+FROM Client C
+INNER JOIN Commande CO on CO.client_id=C.id
+INNER JOIN CommandeProduit CP on CP.commande_id=CO.id
+INNER JOIN Produit P on P.id=CP.produit_id
+GROUP BY C.id ORDER BY &quot;Montant commandé&quot; DESC</sql><sql name="SQL 5">SELECT C.id, C.Nom, C.Prenom, COUNT(CO.id) as &quot;nb commandes&quot;
+FROM Client C
+INNER JOIN Commande CO on CO.client_id=C.id
+GROUP BY C.id ORDER BY &quot;nb commandes&quot; DESC</sql><sql name="SQL 6">SELECT P.Nom as &quot;Produit&quot;, SUM(CP.Quantite) as &quot;Qte commandee&quot;, P.Prix as &quot;Prix unitaire&quot;, SUM(P.Prix * CP.Quantite) as &quot;Prix total&quot;
+FROM Produit P
+INNER JOIN CommandeProduit CP on CP.produit_id=P.id
+GROUP BY P.Nom ORDER BY &quot;Qte commandee&quot; DESC</sql><sql name="SQL 7">INSERT INTO Client (Nom, Prenom, Email)
+VALUES (&quot;ROBERT&quot;, &quot;Leo&quot;, &quot;leo.robert@email.com&quot;),
+(&quot;MOREAU&quot;, &quot;Arthur&quot;, &quot;arthur.moreau@email.com&quot;)</sql><sql name="SQL 8">INSERT INTO Produit (Nom, Description, Prix)
+VALUES (&quot;Telephone portable&quot;, &quot;Marque Samsung&quot;, 999.99), (&quot;Tablette&quot;, &quot;Apple&quot;, 1299), (&quot;Clavier et souris&quot;, &quot;Marque Logitech&quot;, 115)</sql><sql name="SQL 9">UPDATE Client
+SET Email = &quot;leo.robert@new-email.com&quot;
+WHERE Nom = &quot;ROBERT&quot;</sql><sql name="SQL 10">UPDATE Produit
+SET Description = &quot;Lampe LED&quot;
+WHERE Nom = &quot;Vidéo projecteur&quot;</sql><current_tab id="9"/></tab_sql></sqlb_project>
