@@ -617,12 +617,12 @@
 					<h3>Les montants dépensés par chaque client</h3>
 					<p>
 						<code>
-							SELECT C.Nom, C.Prenom, SUM(P.Prix) as "Dépense totale" <br>
+							SELECT C.id, C.Nom, C.Prenom, SUM(P.Prix * CP.Quantite) as "Dépense totale" <br>
 							FROM Client C <br>
 							INNER JOIN Commande CO ON CO.client_id = C.id <br>
 							INNER JOIN CommandeProduit CP ON CP.commande_id = CO.id <br>
 							INNER JOIN Produit P ON P.id = CP.produit_id <br>
-							GROUP BY C.Nom, C.Prenom;
+							GROUP BY C.id;
 						</code>
 					</p>
 				</section>
