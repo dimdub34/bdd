@@ -638,10 +638,10 @@
 					<p>
 						Commandes de chaque client<br>
 						<code>
-							SELECT C.Nom, C.Prenom, COUNT(CO.id) as "Nombre de commandes" <br>
+							SELECT C.id, C.Nom, C.Prenom, COUNT(CO.id) as "Nombre de commandes" <br>
 							FROM Client C <br>
 							INNER JOIN Commande CO ON CO.client_id = C.id <br>
-							GROUP BY C.Nom, C.Prenom;
+							GROUP BY C.id;
 						</code>
 					</p>
 				</section>
